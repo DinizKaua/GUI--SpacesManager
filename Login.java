@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -17,7 +15,7 @@ public class Login extends JFrame {
 
     // COMPONENTES
     final Image icon = Toolkit.getDefaultToolkit().getImage("icone.png");
-    final JLabel perfil = new JLabel(new ImageIcon("perfil.png"));
+    final JLabel perfil = new JLabel(redimensionarImagem());
     final JLabel email = new JLabel("E-mail");
     final JTextField campo_email = new JTextField(20);
     final JLabel senha = new JLabel("Senha");
@@ -33,6 +31,7 @@ public class Login extends JFrame {
         setIconImage(icon);
         setLayout(layout);
         formulario.setBackground(azul_claro);
+
         estilizar();
 
         // CONFIGURAÇÃO E ADIÇÃO DE COMPONENTES
@@ -55,31 +54,18 @@ public class Login extends JFrame {
         configurarPos(posicao, 0, 7, 10, 0, 30, 10); // Login
         formulario.add(login, posicao);
 
-        cadastro.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                new Teste();
-            }
+        cadastro.addActionListener(e -> {
+            setVisible(false);
+            new Cadastro();
         });
 
-        login.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                new Teste();
-            }
+        login.addActionListener(e -> {
+            setVisible(false);
+            new Teste2();
         });
-
 
         add(formulario, BorderLayout.CENTER);
         setVisible(true); // mostra a janela
-    }
-
-    private ImageIcon iconRedimencionada(String caminho, int a, int b){
-        ImageIcon original = new ImageIcon(caminho);
-        Image redimensionada = original.getImage().getScaledInstance(a, b, Image.SCALE_SMOOTH);
-        return new ImageIcon(redimensionada);
     }
 
     // Configura diretamente a posicao dos meus elementos
@@ -91,6 +77,7 @@ public class Login extends JFrame {
 
     // Estiliza meus componentes (css da silva)
     private void estilizar(){
+        perfil.setPreferredSize(new Dimension(200, 200));
 
         // Arrumando email e senha
         email.setForeground(Color.WHITE);
@@ -158,8 +145,11 @@ public class Login extends JFrame {
         campo.setCaretColor(Color.WHITE);
     }
 
-    public static void main(String[] args) {
-        new Login(); // inicia a interface
+    private ImageIcon redimensionarImagem(){
+        ImageIcon originalIcon = new ImageIcon("4.png");
+        Image imagemRedimensionada = originalIcon.getImage().getScaledInstance(270, 270, Image.SCALE_SMOOTH);
+        return new ImageIcon(imagemRedimensionada);
     }
+    public static void main(String[] args) { new Login();}
 }
 
